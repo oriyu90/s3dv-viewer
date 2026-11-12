@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+<title>S3DV viewer</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#0b1119;color:#dbe6f3;
+    font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;overflow:hidden}
+  #stage{position:absolute;inset:0}
+  #stage canvas{display:block;outline:none}
+
+  /* On-canvas HUD: deliberately tiny — the native window owns the real chrome. */
+  #hud{position:absolute;left:14px;bottom:14px;display:flex;gap:8px;align-items:center;
+    padding:8px 12px;border-radius:11px;background:rgba(11,17,25,.72);
+    border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px);
+    font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;color:#9fb4cc;
+    pointer-events:none;transition:opacity .2s}
+  #hud .v{color:#e8f1fb}
+  #hud .sep{width:1px;height:11px;background:rgba(255,255,255,.14)}
+  #hud.hidden{opacity:0}
+
+  #statusbar{position:absolute;left:14px;top:14px;display:flex;gap:8px;align-items:center;
+    padding:7px 12px;border-radius:11px;background:rgba(11,17,25,.72);
+    border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(14px);
+    font:500 11px -apple-system,system-ui,sans-serif;color:#9fb4cc;pointer-events:none}
+  #statusbar .dot{width:6px;height:6px;border-radius:50%;background:#5d9cf7}
+  #statusbar.warn .dot{background:#f5b84e}
+  #statusbar.err .dot{background:#f76f6b}
+  #status{color:#dbe6f3}
+
+  #progress{position:absolute;left:0;right:0;top:0;height:2px;background:transparent}
+  #progress i{display:block;height:2px;width:0;background:linear-gradient(90deg,#4f8ef7,#7dd3fc);
+    transition:width .18s ease-out}
+
+  #hint{position:absolute;right:14px;bottom:14px;font:500 10.5px -apple-system,system-ui,sans-serif;
+    color:#63788f;pointer-events:none;text-align:right;line-height:1.55}
+
+  /* Telemetry source values: present in the DOM (native polls them) but never shown. */
+  #telemetry{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/"}}</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="progress"><i id="progressbar"></i></div>
+<div id="statusbar"><span class="dot"></span><span id="status">接続中…</span></div>
+<div id="hud">
+  <span><span class="v" id="chunks">0</span> chunks</span><span class="sep"></span>
+  <span><span class="v" id="triangles">0</span> tris</span><span class="sep"></span>
+  <span><span class="v" id="fps">0</span> fps</span><span class="sep"></span>
+  <span><span class="v" id="presented">0</span>/<span class="v" id="dropped">0</span> frames</span><span class="sep"></span>
+  <span><span class="v" id="mem_mb">0</span> MB</span>
+</div>
+<div id="hint">左ドラッグ 回転 ・ ホイール ズーム ・ 右ドラッグ 移動 / Left drag: rotate ・ Wheel: zoom ・ Right drag: pan</div>
+<div id="telemetry">
+  <output id="tex">0</output><output id="packets">0</output><output id="bytes">0 KB</output>
+  <output id="op">—</output><output id="time">0.000 s</output><output id="frame_ms">0</output>
+  <output id="draw_calls">0</output><output id="geometries">0</output>
+  <output id="textures">0</output><output id="programs">0</output>
+  <output id="backlog">0</output>
+</div>
+<script type="module" src="./viewer.js"></script>
+</body></html>

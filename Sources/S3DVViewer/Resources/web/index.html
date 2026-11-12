@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="><title>S3DV / Spatial Stream Viewer</title><style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#101827;color:#e2e8f0;font-family:system-ui,-apple-system,sans-serif}
+header{height:64px;border-bottom:1px solid #2c3a4f;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+header strong{letter-spacing:.1em;font-size:17px}header span{font-size:12px;color:#95a6bf}
+main{display:grid;grid-template-columns:minmax(0,1fr) 295px;height:calc(100% - 64px)}#stage{position:relative;min-height:350px}
+#stage canvas{display:block}.hint{position:absolute;bottom:16px;left:16px;background:#101827b9;padding:7px 11px;border-radius:7px;font-size:12px;color:#b9c9dc;pointer-events:none}
+aside{border-left:1px solid #2c3a4f;padding:20px;overflow:auto;background:#131e2d}h2{font-size:12px;letter-spacing:.12em;color:#8fb2d6;text-transform:uppercase;margin:5px 0 16px}
+.metric{padding:12px 0;border-bottom:1px solid #2e3d4e}.metric label{display:block;color:#98a9bd;font-size:12px;margin-bottom:5px}.metric output{font:600 19px ui-monospace,monospace}
+button{cursor:pointer;border:1px solid #50789c;background:#1b3147;color:#e2e8f0;padding:9px 12px;border-radius:7px;margin:15px 6px 0 0}button:hover{background:#234465}
+button:disabled{cursor:default;border-color:#3a4b60;background:#16232f;color:#7d8ea3}
+select,input[type=range]{cursor:pointer;border:1px solid #50789c;background:#1b3147;color:#e2e8f0;border-radius:7px;font:ui-monospace,monospace}
+#transport{margin-top:15px}#transport .row{display:flex;align-items:center;gap:6px;margin-top:10px}
+#timeline{flex:1;accent-color:#8fb2d6;padding:0}#clock{font:600 13px ui-monospace,monospace;color:#98a9bd;margin-right:6px;white-space:nowrap}
+#speed{padding:8px 10px;margin:0}
+small{display:block;line-height:1.6;color:#93a6be;margin-top:15px}
+@media(max-width:800px){main{display:block;overflow:auto;height:auto}#stage{height:55vh}aside{border-left:0;border-top:1px solid #2c3a4f}}
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/"}}</script>
+</head><body><header><strong>S3DV <span>/ Spatial Stream Viewer</span></strong><span id="status">Connecting…</span></header>
+<main><div id="stage"><div class="hint">左ドラッグ：回転 / ホイール：ズーム / 右ドラッグ：移動</div></div><aside>
+<h2>Stream Telemetry</h2>
+<div class="metric"><label>Presentation timestamp</label><output id="time">0.000 s</output></div>
+<div class="metric"><label>Mesh chunks</label><output id="chunks">0</output></div>
+<div class="metric"><label>Visible triangles</label><output id="triangles">0</output></div>
+<div class="metric"><label>Textured chunks</label><output id="tex">0</output></div>
+<div class="metric"><label>Received payload</label><output id="bytes">0 KB</output></div>
+<div class="metric"><label>Received packets</label><output id="packets">0</output></div>
+<div class="metric"><label>Last opcode</label><output id="op">—</output></div>
+<h2>Runtime Metrics</h2>
+<div class="metric"><label>Render rate (1 s window)</label><output id="fps">—</output></div>
+<div class="metric"><label>Last frame interval</label><output id="frame_ms">—</output></div>
+<div class="metric"><label>Decode+apply time (avg 128 pkt)</label><output id="apply_ms">—</output></div>
+<div class="metric"><label>Packet rate (1 s window)</label><output id="pkt_s">—</output></div>
+<div class="metric"><label>Payload rate (1 s window)</label><output id="kib_s">—</output></div>
+<div class="metric"><label>Draw calls (last frame)</label><output id="draw_calls">—</output></div>
+<div class="metric"><label>Geometries (GPU)</label><output id="geometries">—</output></div>
+<div class="metric"><label>Textures (GPU)</label><output id="textures">—</output></div>
+<div class="metric"><label>Shader programs</label><output id="programs">—</output></div>
+<div class="metric"><label>JS heap used</label><output id="heap_mb">unavailable</output></div>
+<div class="metric"><label>WebSocket buffered</label><output id="wsbuf">0</output></div>
+<small>実験用の実測値。ブラウザは OS の CPU/GPU 使用率を報告しないため、fps・frame_ms・decode+apply_ms はメインスレッド時間の proxy、draw_calls/textures は three.js renderer.info の GPU 側 proxy です（Chromium と WKWebView では意味が異なります）。heap は Chromium のみで取得できます。decode+apply_ms は通常受信時は decode+apply、pause バッファ/ステップのリプレイ時は適用のみを 128 パケット移動平均で測ります。</small>
+<div id="transport">
+<div class="row"><output id="clock">0.000 / — s</output><input id="timeline" type="range" min="0" max="0" step="0.01" value="0" disabled aria-label="Seek timeline"></div>
+<div class="row"><button id="pause">Pause</button><button id="step" disabled>Step</button><button id="restart">Restart</button><select id="speed" aria-label="Playback rate"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></div>
+</div>
+<button id="wire">Wireframe</button><button id="reset">Reset view</button>
+<small>実験用。入力は録画されたS3DVで、3D点の色を表示します。Space=一時停止・`.`=ステップ・←→=±1秒シーク。サーバーが制御命令に未対応の場合は見た目上そのまま継続します（タイムラインは無効）。通信はバイナリWebSocket＋JSONテキスト制御。ブラウザ初期ロード時にThree.jsをCDNから取得するため、初回はネットワーク接続が必要です。</small>
+</aside></main><script type="module" src="/main.js"></script></body></html>

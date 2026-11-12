@@ -1,0 +1,224 @@
+/*
+ Localizable.strings — English (base language is Japanese in source;
+ this file maps Japanese source strings → English translations).
+*/
+
+/* --- SettingsView: tabs --- */
+"配信" = "Stream";
+"描画" = "Rendering";
+"メモリ" = "Memory";
+"ネットワーク" = "Network";
+"詳細" = "Advanced";
+
+/* --- SettingsView: stream tab --- */
+"ソース" = "Source";
+"入力" = "Input";
+"ws://host:port" = "ws://host:port";
+"接続" = "Connect";
+"リモート時はネイティブ再生を行いません（タイムラインは無効）。" = "Native playback is disabled when remote (timeline is disabled).";
+"再生" = "Playback";
+"速度" = "Speed";
+"ループ再生" = "Loop playback";
+"開始時に一時停止" = "Start paused";
+"ループ間隔" = "Loop interval";
+"秒" = "sec";
+"ペーシング" = "Pacing";
+"最大待機" = "Max wait";
+"秒（1パケットあたり）" = "sec (per packet)";
+"録画のタイムスタンプ間隔が大きい場合の上限です。既定は2秒（サーバー実装と同一）。" = "Upper limit when the recording timestamp interval is large. Default is 2 sec (same as server implementation).";
+"制御チャネル" = "Control channel";
+"ページからの pause / step / seek / speed を許可" = "Allow pause / step / seek / speed from page";
+"切断時に自動再接続" = "Auto reconnect on disconnect";
+"再接続の試行回数" = "Reconnect attempts";
+"回" = "times";
+"待機は 0.5 秒から倍々（最大 8 秒）" = "Wait doubles from 0.5 sec (max 8 sec)";
+"いまのセッションに適用" = "Apply to current session";
+
+/* --- SettingsView: rendering tab --- */
+"レンダラ" = "Renderer";
+"切り替えは「再読み込み」で反映されます。" = "Switching takes effect on \"Reload\".";
+"再読み込み" = "Reload";
+"フレーム提示" = "Frame presentation";
+"適用予算" = "Apply budget";
+"ms / 描画tick" = "ms / render tick";
+"1回の描画で適用に使える時間。大きいほど進みが速く、フレームは減ります。" = "Time budget to apply packets per render draw. Larger = faster progress, fewer frames.";
+"小さくするとロード時間を取って滑らかに表示します（1–50）。" = "Smaller = takes load time for smooth display (1–50).";
+"表示" = "Display";
+"ワイヤーフレームで開始" = "Start in wireframe";
+"グリッド床を表示" = "Show grid floor";
+"ビュー内HUDを表示" = "Show in-view HUD";
+"解像度上限" = "Resolution limit";
+"1×" = "1×";
+"1.5×" = "1.5×";
+"2×（Retina）" = "2× (Retina)";
+"テクスチャ品質" = "Texture quality";
+"100%" = "100%";
+"75%" = "75%";
+"50%" = "50%";
+
+/* --- SettingsView: memory tab --- */
+"常駐ジオメトリ予算" = "Resident geometry budget";
+"ビューアが保持する頂点・インデックスの上限。超えると古い／外側のチャンクから退避します。" = "Upper limit of vertices/indices the viewer holds. Excess/outer chunks are evicted.";
+"東京の 1.27 GB ストリーム（2,100万三角形）は「標準」で収まります。" = "The 1.27 GB Tokyo stream (21M triangles) fits in \"Standard\".";
+"無制限はクラッシュの危険があります（描画プロセスの上限は約4GB）。" = "Unlimited may crash (renderer process limit approx. 4 GB).";
+"退避ポリシー" = "Eviction policy";
+"空間的 = 中心から外側へ削り、塊として読める形を残します。LRU = 古い順。" = "Spatial = trim from outside in, keeping readable chunks. LRU = oldest first.";
+"バッチング" = "Batching";
+"1アリーナの頂点数" = "Vertices per arena";
+"（大きいほどドローコール減・メモリ増）" = "(larger = fewer draw calls, more memory)";
+"メモリ圧迫時に予算を自動縮小" = "Auto shrink budget under memory pressure";
+"現状" = "Status";
+"アプリ使用" = "App usage";
+"ビューア推定" = "Viewer estimate";
+"退避 / 保留" = "Evicted / Deferred";
+
+/* --- SettingsView: network tab --- */
+"ループバックサーバー" = "Loopback server";
+"HTTPポート" = "HTTP port";
+"0 = 自動" = "0 = auto";
+"WebSocketポート" = "WebSocket port";
+"同時クライアント" = "Simultaneous clients";
+"待ち受けは常に 127.0.0.1 です（外部公開しません）。ポート変更は次回オープン時に反映されます。" = "Listens on 127.0.0.1 only (not exposed externally). Port changes take effect on next open.";
+"このセッション" = "This session";
+"状態" = "Status";
+"制御" = "Control";
+"有効" = "Enabled";
+"無効" = "Disabled";
+
+/* --- SettingsView: advanced tab --- */
+"診断" = "Diagnostics";
+"開くときに全レコードをCRC検証（大きいファイルは遅い）" = "CRC verify all records on open (slow for large files)";
+"起動時に前回のファイルを復元" = "Restore previous file on launch";
+"テレメトリ更新" = "Telemetry update";
+"Hz" = "Hz";
+"ログを開く" = "Open logs";
+"設定を初期化" = "Reset settings";
+"環境" = "Environment";
+"バージョン" = "Version";
+"描画プロセス復帰" = "Renderer process recovery";
+"あり" = "Yes";
+"なし" = "No";
+"ファイル" = "File";
+"研究用" = "Research";
+"このアプリは S3DV 研究キットのビューアです。パリティ描画は web/main.js をバイト一致で実行します。" = "This app is the viewer for the S3DV research kit. Parity rendering executes web/main.js byte-identically.";
+"東京の3Dデータは Project PLATEAU（CC BY 4.0 互換）に由来します。" = "Tokyo 3D data originates from Project PLATEAU (CC BY 4.0 compatible).";
+
+/* --- SettingsView: footer --- */
+"閉じる" = "Close";
+
+/* --- StudioView: header --- */
+"S3DV viewer" = "S3DV viewer";
+"REMOTE" = "REMOTE";
+"予算モード（連番正規化）" = "Budget mode (sequence renormalized)";
+"一時停止" = "Paused";
+"完了" = "Finished";
+"再生中" = "Playing";
+"インスペクタの表示切替" = "Toggle inspector";
+"ビューアを準備しています…" = "Preparing viewer…";
+
+/* --- StudioView: banners --- */
+"描画プロセスが終了したため自動復帰しました。予算を下げると再発しにくくなります。" = "Renderer process ended; auto-recovered. Lower the budget to reduce recurrence.";
+"設定" = "Settings";
+
+/* --- StudioView: toolbar --- */
+"同梱デモを再生" = "Play bundled demo";
+"録画を開く (⌘O)" = "Open recording (⌘O)";
+"ワイヤーフレーム (⇧⌘W)" = "Wireframe (⇧⌘W)";
+"視点をリセット (⇧⌘V)" = "Reset view (⇧⌘V)";
+"閉じる (⌘W)" = "Close (⌘W)";
+"再生 / 一時停止 (Space)" = "Play / Pause (Space)";
+"1パケット進む (.)" = "Advance 1 packet (.)";
+"先頭から再生し直す (⌘R)" = "Restart from beginning (⌘R)";
+"シーク" = "Seek";
+"このストリームはシーク情報を持ちません" = "This stream has no seek information";
+"カスタム…" = "Custom…";
+"ループ再生" = "Loop playback";
+"退避" = "Evicted";
+"pkt" = "pkt";
+
+/* --- StudioView: inspector sections --- */
+"ストリーム" = "Stream";
+"パケット" = "Packets";
+"受信" = "Received";
+"チャンク" = "Chunks";
+"三角形" = "Triangles";
+"時間" = "Time";
+"転送" = "Transferred";
+"描画（ブラウザ側 proxy）" = "Rendering (browser proxy)";
+"フレーム" = "Frame";
+"ドローコール" = "Draw calls";
+"ジオメトリ" = "Geometry";
+"提示 / 落としたフレーム" = "Presented / Dropped frames";
+"未適用バックログ" = "Unapplied backlog";
+"メモリ予算" = "Memory budget";
+"推定使用" = "Estimated usage";
+"退避チャンク" = "Evicted chunks";
+"保留（予算超過）" = "Deferred (budget exceeded)";
+"アプリ使用メモリ" = "App memory usage";
+"ソース" = "Source";
+"コンソール" = "Console";
+"エラーなし" = "No errors";
+
+/* --- S3DVApp: menu --- */
+"録画を開く…" = "Open recording…";
+"S3DV viewer について" = "About S3DV viewer";
+"再生" = "Play";
+"1パケット進む" = "Advance 1 packet";
+"速度" = "Speed";
+"表示" = "Display";
+"ワイヤーフレーム" = "Wireframe";
+"視点をリセット" = "Reset view";
+"ログフォルダを開く" = "Open log folder";
+
+/* --- AppCore: file panel / status / errors --- */
+"S3DV 録画を開く" = "Open S3DV recording";
+"S3DPパケットを含む .s3dv ファイルを選択してください" = "Select an .s3dv file containing S3DP packets";
+"検証中…" = "Verifying…";
+"埋め込みビューアを起動中…" = "Launching embedded viewer…";
+"リモートに接続中…" = "Connecting to remote…";
+"クライアントが切断しました" = "Client disconnected";
+"シーク中…" = "Seeking…";
+"エラー" = "Error";
+"停止" = "Stopped";
+"待機" = "Idle";
+"メモリ圧迫" = "Memory pressure";
+"ビューアの描画プロセスが繰り返し終了しました。設定でメモリ予算を下げるか、描画モードを「軽量」にしてください。" = "Viewer renderer process terminated repeatedly. Lower the memory budget in settings or set the renderer mode to \"Lean\".";
+"描画プロセスが終了しました。自動復帰します（%d/2）" = "Renderer process ended. Auto-recovering (%d/2)";
+"アプリバンドルに web リソースがありません（再ビルドしてください）" = "App bundle has no web resources (rebuild required)";
+"同梱デモ (demo/cube_orbit.s3dv) が見つかりません。アプリを再ビルドしてください。" = "Bundled demo (demo/cube_orbit.s3dv) not found. Rebuild the app.";
+"リモートURLが不正です: %@" = "Invalid remote URL: %@";
+
+/* --- AppCore: status / memory pressure / recovery --- */
+"検証中…" = "Verifying…";
+"埋め込みビューアを起動中…" = "Launching embedded viewer…";
+"リモートに接続中…" = "Connecting to remote…";
+"クライアントが切断しました" = "Client disconnected";
+"再生中" = "Playing";
+"一時停止" = "Paused";
+"シーク中…" = "Seeking…";
+"完了" = "Finished";
+"エラー" = "Error";
+"停止" = "Stopped";
+"待機" = "Idle";
+"メモリ圧迫 (%@) — 予算を縮小します" = "Memory pressure (%@) — shrinking budget";
+"描画プロセスが終了しました。自動復帰します（%d/2）" = "Renderer process ended. Auto-recovering (%d/2)";
+
+/* --- AppSettings: enum labels / details --- */
+"1ドローコール/アリーナで大量チャンクを描画。巨大モデル向け（既定）。" = "One draw call per arena for massive chunks. For huge models (default).";
+"キット同梱の main.js をバイト一致で実行。研究再現用。" = "Executes kit-bundled main.js byte-identically. For research reproduction.";
+"ローカル録画 (.s3dv)" = "Local recording (.s3dv)";
+"同梱デモ" = "Bundled demo";
+"リモート s3dv serve" = "Remote s3dv serve";
+"空間的（中心から外側へ）" = "Spatial (from center outward)";
+"LRU（古い順）" = "LRU (oldest first)";
+"軽量 (1.0 GB)" = "Lean (1.0 GB)";
+"標準 (2.0 GB)" = "Standard (2.0 GB)";
+"高品質 (4.0 GB)" = "High quality (4.0 GB)";
+"無制限（危険）" = "Unlimited (dangerous)";
+"フレーム完全（既定）" = "Frame-complete (default)";
+"即時（従来動作）" = "Immediate (legacy)";
+"受信フレームを描画tick内で完全適用してから提示します。負荷時は中間フレームを落として、必ず完全な状態だけを表示します。" = "Applies received frames fully within the render tick before presenting. Under load, intermediate frames are dropped so only complete states are shown.";
+"受信したフレームを即座に適用し、rAFのタイミングで描画します（研究キットと同じ動作）。" = "Applies received frames immediately and renders at rAF timing (same as research kit).";
+
+/* --- AppCore: errors --- */
+"アプリバンドルに web リソースがありません（再ビルドしてください）" = "App bundle has no web resources (rebuild required)";
